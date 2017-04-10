@@ -33,13 +33,12 @@ RUN set -x \
     && mv phpMyAdmin-$VERSION-all-languages /www \
     && rm -rf /www/setup/ /www/examples/ /www/test/ /www/po/ /www/composer.json /www/RELEASE-DATE-$VERSION \
     && sed -i "s@define('CONFIG_DIR'.*@define('CONFIG_DIR', '/etc/phpmyadmin/');@" /www/libraries/vendor_config.php \
-    && mkdir /var/nginx/ \
-    && chown -R 1001:0 /www /etc/phpmyadmin /var/log/ /var/nginx/ \
-    && chmod -R a+rwx /www /etc/phpmyadmin /var/log/ /var/nginx/ \
+    && mkdir -p /var/run/php/ \
+    && mkdir -p /var/nginx/client_body_temp \
+    && chown -R 1001:0 /www /etc/phpmyadmin /var/log/ /var/nginx/client_body_temp \
+    && chmod -R a+rwx /www /etc/phpmyadmin /var/log/ /var/nginx/client_body_temp \
     && find /www -type d -exec chmod 750 {} \; \
     && find /www -type f -exec chmod 640 {} \;
-
-RUN mkdir /var/run/php/
 
 # Add volume for sessions to allow session persistence
 # VOLUME /sessions
