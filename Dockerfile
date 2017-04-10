@@ -33,8 +33,9 @@ RUN set -x \
     && mv phpMyAdmin-$VERSION-all-languages /www \
     && rm -rf /www/setup/ /www/examples/ /www/test/ /www/po/ /www/composer.json /www/RELEASE-DATE-$VERSION \
     && sed -i "s@define('CONFIG_DIR'.*@define('CONFIG_DIR', '/etc/phpmyadmin/');@" /www/libraries/vendor_config.php \
-    && chown -R 1001:0 /www /etc/phpmyadmin /var/log/ \
-    && chmod -R a+rwx /www /etc/phpmyadmin /var/log/ \
+    && mkdir /var/nginx/ \
+    && chown -R 1001:0 /www /etc/phpmyadmin /var/log/ /var/nginx/ \
+    && chmod -R a+rwx /www /etc/phpmyadmin /var/log/ /var/nginx/ \
     && find /www -type d -exec chmod 750 {} \; \
     && find /www -type f -exec chmod 640 {} \;
 
